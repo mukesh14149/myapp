@@ -11,6 +11,9 @@ import { HttpProvider } from '../providers/http/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { ModulesPage } from '../pages/modules/modules';
+import { IonicStorageModule } from '@ionic/storage';
+import { DatabaseserviceProvider } from '../providers/databaseservice/databaseservice';
 
 export const config = {
   apiKey: "AIzaSyB1L8hnzF5BizgW_rc_RpOya-mbaaD51Wc",
@@ -24,11 +27,13 @@ export const config = {
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    ModulesPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(config),
     AngularFireDatabaseModule,
     HttpClientModule,
@@ -36,13 +41,15 @@ export const config = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    ModulesPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpProvider,
+    DatabaseserviceProvider,
     UniqueDeviceID
   ]
 })

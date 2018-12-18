@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
+import { ModulesPage } from '../pages/modules/modules';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -16,6 +18,13 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      platform.pause.subscribe(() => {
+        console.log('[INFO] App paused');
+      });
+
+      platform.resume.subscribe(() => {
+          console.log('[INFO] App resumed');
+      });
     });
   }
 }

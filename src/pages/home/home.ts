@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
+import { DatabaseserviceProvider } from '../../providers/databaseservice/databaseservice';
+import { Storage } from '@ionic/storage';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -10,19 +13,30 @@ export class HomePage {
   t:number =10;
   button:number = -1;
   visiblityCount: number;
-  constructor(public httpprovider: HttpProvider){
+  constructor(public storage: Storage, public httpprovider: HttpProvider, public database: DatabaseserviceProvider){
     // this.showContent(2);
-   
-    httpprovider.getData().subscribe((res)=> 
+    this.storage.get('data1').then((val) => {
+      this.items = val;
+      this.getBasicData();
+    }).catch((err) => {
+      httpprovider.getData().subscribe((res)=> 
       { 
-        console.log(res[0].question);
-        this.items = this.addVisiblity(res);
-       // httpprovider.updateDatabase(res);
+        this.items = this.formatData(res);
+        database.storeData(this.items);
+        // httpprovider.updateDatabase(res);
         this.getBasicData();
       });
+    });
+   
 
    
   }
+  
+ ionViewDidLeave(){
+  console.log("leave");
+  this.storage.set('data1', this.items);
+ }
+ 
   // async showContent(i){
   //   this.file.readAsText(this.file.applicationDirectory + "www/assets/", "java-core.json").then(res => {
   //         this.items = JSON.parse(res);
@@ -54,7 +68,7 @@ export class HomePage {
     
   }
 
-  addVisiblity(res){
+  formatData(res){
      for(let item in res){
        //console.log(res[item]);
        res[item]['visiblity'] = false;

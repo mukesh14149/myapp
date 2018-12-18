@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
 /**
  * Generated class for the ModulesPage page.
  *
@@ -16,6 +15,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class ModulesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+   
   }
 
   ionViewDidLoad() {

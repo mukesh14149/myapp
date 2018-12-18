@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the DatabaseserviceProvider provider.
@@ -10,8 +11,15 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DatabaseserviceProvider {
 
-  constructor(public http: HttpClient) {
+  constructor(public storage: Storage, public http: HttpClient) {
     console.log('Hello DatabaseserviceProvider Provider');
+    
+  }
+
+  storeData(items){
+    this.storage.set('data1', items);
+    
+    
   }
 
 }
