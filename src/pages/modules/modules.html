@@ -5,14 +5,24 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>modules</ion-title>
-  </ion-navbar>
+  <ion-toolbar>
+    <ion-title>
+      Interview Questions
+    </ion-title>
+  </ion-toolbar>
+ 
 
 </ion-header>
 
 
 <ion-content padding>
-    <p>Pagetest</p>
+  <ion-card class="ioncard" *ngFor="let item of items; let i = index" (click)="loadSubmodule(i)">
+
+    <ion-card-header >    </ion-card-header>
+  
+    <ion-card-content  class="ioncardcontent" >
+        {{item}}
+    </ion-card-content>
+  
+</ion-card>
 </ion-content>

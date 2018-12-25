@@ -11,14 +11,18 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 */
 @Injectable()
 export class HttpProvider {
-  private dbPath = '/Core-JAVA';
-  private uuid;
+  private dbPath = '';
+  private datapath = '';
+  private uuid = '';
   constructor(public http: HttpClient,private db: AngularFireDatabase, private uniqueDeviceID: UniqueDeviceID) {
     this.uniqueDeviceID.get()
     .then((uuid: any) => this.uuid = uuid)
     .catch((error: any) => console.log(error));
   }
-  
+  setPath(path, datapath){
+    this.dbPath = path; 
+    this.datapath = datapath; 
+  }
   updateDatabase(res){
    
 
@@ -58,19 +62,24 @@ export class HttpProvider {
     //database.update(res[i], { url: 'javasampleapp.com' });
   }
   getVisiblityCount(res){
+    console.log(res);
     const database =  this.db.list(this.dbPath+"/" + res.id);   
     return database.snapshotChanges();
     
   }
   updateVisiblity(res){
     console.log(res.id + "updated");
-    const database =  this.db.list(this.dbPath+"/" + res.id);   
-   database.update("83fd889a-43a9-9e31-3591-060813724788", {"difficulty" : ''});
+    const database =  this.db.list(this.dbPath+"/" + res.id); 
+    if(this.uuid != '')
+        database.update(this.uuid, {"difficulty" : ''});
+    else
+        database.update("83fd889a-43a9-9e31-3591-060813724788", {"difficulty" : ''});
+
   }
 
   getData(){
     console.log("get request111");
-    return this.http.get('https://api.myjson.com/bins/vrtic');
+    return this.http.get(this.datapath);
      
   }
 }

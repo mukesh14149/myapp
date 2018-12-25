@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, NavParams, LoadingController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { DatabaseserviceProvider } from '../../providers/databaseservice/databaseservice';
 import { Storage } from '@ionic/storage';
@@ -13,18 +13,28 @@ export class HomePage {
   t:number =10;
   button:number = -1;
   visiblityCount: number;
-  constructor(public storage: Storage, public httpprovider: HttpProvider, public database: DatabaseserviceProvider){
+  constructor(public loadingCtrl: LoadingController, public navParams: NavParams, public storage: Storage, public httpprovider: HttpProvider, public database: DatabaseserviceProvider){
     // this.showContent(2);
-    this.storage.get('data1').then((val) => {
-      this.items = val;
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+
+    console.log(this.navParams);
+    this.httpprovider.setPath(this.navParams.get('dbpath'), this.navParams.get('value'))
+    this.storage.get(this.navParams.get('title')).then((val) => {
+      this.items = val;      
       this.getBasicData();
+      loading.dismiss();
     }).catch((err) => {
       httpprovider.getData().subscribe((res)=> 
       { 
         this.items = this.formatData(res);
-        database.storeData(this.items);
+        console.log(this.items);
+        database.storeData(this.navParams.get('title'), this.items);
         // httpprovider.updateDatabase(res);
         this.getBasicData();
+        loading.dismiss();
       });
     });
    
@@ -34,7 +44,7 @@ export class HomePage {
   
  ionViewDidLeave(){
   console.log("leave");
-  this.storage.set('data1', this.items);
+  this.storage.set(this.navParams.get('title'), this.items);
  }
  
   // async showContent(i){
@@ -59,7 +69,7 @@ export class HomePage {
   //   this.button = i;
   // }
   getBasicData(){
-    for(let i=this.t-10;i<=this.t;i++){
+    for(let i=this.t-10;i<this.t;i++){    
      this.httpprovider.getVisiblityCount(this.items[i]).subscribe(res=> {
        //console.log(res.length +"ss" + this.items[i].visiblityCount );
         this.items[i].visiblityCount = res.length;      
@@ -81,7 +91,6 @@ export class HomePage {
     //console.log(this.items[i].id); 
     setTimeout(() => {  
         try{
-          console.log("aaa");
           let element = document.getElementsByTagName('table');
           
           
@@ -96,8 +105,12 @@ export class HomePage {
         this.httpprovider.updateVisiblity(this.items[i]);
   }
   doInfinite(infiniteScroll) {
+   
     if(this.t<=this.items.length-10){
       this.t = this.t +10;
+      this.getBasicData();
+    }else if(this.t < this.items.length){
+      this.t = this.t+ this.items.length-this.t;
       this.getBasicData();
     }
       

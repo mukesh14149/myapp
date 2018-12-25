@@ -16,8 +16,8 @@ export class DatabaseserviceProvider {
     
   }
 
-  storeData(items){
-    this.storage.set('data1', items);
+  storeData(items, type){
+    this.storage.set(type, items);
     
     
   }

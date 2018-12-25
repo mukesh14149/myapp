@@ -14,6 +14,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { ModulesPage } from '../pages/modules/modules';
 import { IonicStorageModule } from '@ionic/storage';
 import { DatabaseserviceProvider } from '../providers/databaseservice/databaseservice';
+import { SubmodulePage } from '../pages/submodule/submodule';
 
 export const config = {
   apiKey: "AIzaSyB1L8hnzF5BizgW_rc_RpOya-mbaaD51Wc",
@@ -28,7 +29,8 @@ export const config = {
   declarations: [
     MyApp,
     HomePage,
-    ModulesPage
+    ModulesPage,
+    SubmodulePage
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ export const config = {
   entryComponents: [
     MyApp,
     HomePage,
-    ModulesPage
+    ModulesPage,
+    SubmodulePage
   ],
   providers: [
     StatusBar,

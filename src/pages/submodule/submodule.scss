@@ -1,4 +1,4 @@
-page-modules {
+page-submodule {
     .ioncard{
         text-align: center;
         vertical-align: middle;
@@ -6,10 +6,8 @@ page-modules {
 
     }
     .ioncardcontent{
-        font-size: 60px;
+        font-size: 30px;
     }
 
-    .scroll-content{
-        margin-top: 50% !important;
-    }
+   
 }
