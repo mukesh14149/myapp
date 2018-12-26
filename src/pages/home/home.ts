@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, NavParams, LoadingController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { DatabaseserviceProvider } from '../../providers/databaseservice/databaseservice';
 import { Storage } from '@ionic/storage';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

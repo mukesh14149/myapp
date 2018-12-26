@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HomePage } from '../home/home';
 
 /**
  * Generated class for the SubmodulePage page.
@@ -34,7 +33,7 @@ export class SubmodulePage {
     console.log(i);
     
     console.log(this.items[i]);
-      this.navCtrl.push(HomePage, this.items[i]);
+      this.navCtrl.push("HomePage", this.items[i]);
   }
 
 }

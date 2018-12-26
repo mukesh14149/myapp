@@ -27,10 +27,7 @@ export const config = {
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage,
-    ModulesPage,
-    SubmodulePage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -42,10 +39,7 @@ export const config = {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage,
-    ModulesPage,
-    SubmodulePage
+    MyApp
   ],
   providers: [
     StatusBar,

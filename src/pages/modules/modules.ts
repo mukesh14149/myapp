@@ -25,7 +25,10 @@ export class ModulesPage {
 
   loadSubmodule(i){
     if(i==0)
-      this.navCtrl.push(SubmodulePage);
+      this.navCtrl.push("SubmodulePage");
+    else{
+      this.navCtrl.push("HomePage", {title:"Android", value:"https://api.myjson.com/bins/sa4z0", dbpath:"/Android"})
+    }  
   }
 
 }
